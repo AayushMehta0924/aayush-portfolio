@@ -15,7 +15,7 @@ export default function Home() {
     <>
       <BootIntro />
       <HeroPhoto />
-      <section className="px-6 py-20 max-w-5xl mx-auto">
+      <section data-depth-mode="about" className="px-6 py-20 max-w-5xl mx-auto">
         <SectionKicker>// about signal</SectionKicker>
         <div className="grid grid-cols-1 md:grid-cols-[minmax(0,_1fr)_220px] gap-10 md:gap-16 items-start">
           <div>
@@ -41,7 +41,10 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="px-6 py-20 border-y border-line/60">
+      <section
+        data-depth-mode="tech"
+        className="px-6 py-20 border-y border-line/60"
+      >
         <div className="max-w-5xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-10 lg:gap-16 items-start">
             <div>
@@ -83,7 +86,10 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="px-6 py-20 max-w-5xl mx-auto">
+      <section
+        data-depth-mode="experience"
+        className="px-6 py-20 max-w-5xl mx-auto"
+      >
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-5 mb-10">
           <div>
             <SectionKicker>// latest experience</SectionKicker>
@@ -120,7 +126,10 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="px-6 py-20 border-y border-line/60">
+      <section
+        data-depth-mode="projects"
+        className="px-6 py-20 border-y border-line/60"
+      >
         <div className="max-w-5xl mx-auto">
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-5 mb-10">
             <div>
@@ -135,7 +144,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="px-6 py-24 max-w-5xl mx-auto">
+      <section data-depth-mode="contact" className="px-6 py-24 max-w-5xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-8 md:items-end">
           <div>
             <SectionKicker>// contact</SectionKicker>

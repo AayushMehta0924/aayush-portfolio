@@ -10,6 +10,7 @@ import { LenisProvider } from "@/components/shell/LenisProvider";
 import { PageTransition } from "@/components/shell/PageTransition";
 import { CommandPalette } from "@/components/shell/CommandPalette";
 import { RouteWarpFlash } from "@/components/shell/RouteWarpFlash";
+import { DepthBackground } from "@/components/shell/DepthBackground";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -36,14 +37,17 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} antialiased`}
     >
-      <body className="min-h-dvh flex flex-col font-sans">
-        <LenisProvider>
-          <Nav />
-          <main className="flex-1 pt-16">
-            <PageTransition>{children}</PageTransition>
-          </main>
-          <Footer />
-        </LenisProvider>
+      <body className="min-h-dvh font-sans">
+        <DepthBackground />
+        <div className="relative z-10 min-h-dvh flex flex-col">
+          <LenisProvider>
+            <Nav />
+            <main className="flex-1 pt-16">
+              <PageTransition>{children}</PageTransition>
+            </main>
+            <Footer />
+          </LenisProvider>
+        </div>
         <CustomCursor />
         <SoundManager />
         <KonamiListener />

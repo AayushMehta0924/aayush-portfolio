@@ -10,6 +10,10 @@ export function HoverPreviewList({ limit }: { limit?: number }) {
   const items = limit ? PROJECTS.slice(0, limit) : PROJECTS;
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const preview = hoveredId ? items.find((p) => p.slug === hoveredId) : null;
+  const setActiveProject = (p: Project | null) => {
+    setHoveredId(p?.slug ?? null);
+    broadcastProjectHover(p);
+  };
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-[1fr_minmax(0,_400px)] gap-12">
@@ -18,10 +22,10 @@ export function HoverPreviewList({ limit }: { limit?: number }) {
           <li key={p.slug}>
             <Link
               href={`/projects/${p.slug}`}
-              onMouseEnter={() => setHoveredId(p.slug)}
-              onMouseLeave={() => setHoveredId(null)}
-              onFocus={() => setHoveredId(p.slug)}
-              onBlur={() => setHoveredId(null)}
+              onMouseEnter={() => setActiveProject(p)}
+              onMouseLeave={() => setActiveProject(null)}
+              onFocus={() => setActiveProject(p)}
+              onBlur={() => setActiveProject(null)}
               onClick={() => playClick().catch(() => {})}
               className="group flex items-baseline gap-4 py-5 border-b border-line transition-colors hover:bg-elevated/40 px-1 rounded-sm"
             >
@@ -67,6 +71,20 @@ export function HoverPreviewList({ limit }: { limit?: number }) {
         </div>
       </div>
     </div>
+  );
+}
+
+function broadcastProjectHover(p: Project | null) {
+  window.dispatchEvent(
+    new CustomEvent("portfolio:project-hover", {
+      detail: p
+        ? {
+            slug: p.slug,
+            title: p.title,
+            tech: p.tech,
+          }
+        : null,
+    }),
   );
 }
 
