@@ -3,6 +3,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import { playWoosh } from "@/lib/sounds";
 
 export function RouteWarpFlash() {
   const pathname = usePathname();
@@ -16,6 +17,7 @@ export function RouteWarpFlash() {
     }
     const target = pathname === "/" ? "~" : "." + pathname;
     setFlash(`cd ${target}`);
+    playWoosh().catch(() => {});
     const t = window.setTimeout(() => setFlash(null), 520);
     return () => window.clearTimeout(t);
   }, [pathname]);

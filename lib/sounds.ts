@@ -56,9 +56,5 @@ export async function playWoosh() {
   if (isMuted()) return;
   await ensureStarted();
   if (!synth) return;
-  const Tone = await getTone();
-  const now = Tone.now();
-  synth.triggerAttackRelease("A5", 0.06, now);
-  synth.triggerAttackRelease("E5", 0.06, now + 0.04);
-  synth.triggerAttackRelease("C5", 0.08, now + 0.08);
+  synth.triggerAttackRelease("E5", 0.06);
 }
