@@ -530,7 +530,10 @@ export function DepthBackground() {
         } as React.CSSProperties
       }
     >
-      <canvas ref={canvasRef} className="absolute inset-0 opacity-80" />
+      <canvas
+        ref={canvasRef}
+        className={`absolute inset-0 ${pathname === "/" ? "opacity-20" : "opacity-80"}`}
+      />
       <div
         className="absolute inset-0 opacity-50"
         style={{

@@ -4,6 +4,7 @@ import { EXPERIENCE } from "@/content/experience";
 import { PROJECTS } from "@/content/projects";
 import { BootIntro } from "@/components/hero/BootIntro";
 import { HeroPhoto } from "@/components/hero/HeroPhoto";
+import { HomeCinematicBackdrop } from "@/components/home/HomeCinematicBackdrop";
 import { HoverPreviewList } from "@/components/projects/HoverPreviewList";
 import { SKILL_TREE } from "@/lib/constellation-data";
 
@@ -68,8 +69,14 @@ export default function Home() {
   return (
     <>
       <BootIntro />
+      <HomeCinematicBackdrop />
+      <div className="relative z-10">
       <HeroPhoto />
-      <section data-depth-mode="about" className="px-6 py-20 max-w-5xl mx-auto">
+      <section
+        data-depth-mode="about"
+        data-home-room="identity"
+        className="px-6 py-20 max-w-5xl mx-auto"
+      >
         <SectionKicker>// identity stage</SectionKicker>
         <div className="grid grid-cols-1 md:grid-cols-[minmax(0,_1fr)_240px] gap-10 md:gap-16 items-start">
           <div>
@@ -104,6 +111,7 @@ export default function Home() {
 
       <section
         data-depth-mode="hero"
+        data-home-room="play"
         className="px-6 py-20 border-y border-line/60"
       >
         <div className="max-w-5xl mx-auto">
@@ -144,6 +152,7 @@ export default function Home() {
 
       <section
         data-depth-mode="tech"
+        data-home-room="systems"
         className="px-6 py-20 border-y border-line/60"
       >
         <div className="max-w-5xl mx-auto">
@@ -190,6 +199,7 @@ export default function Home() {
 
       <section
         data-depth-mode="experience"
+        data-home-room="work"
         className="px-6 py-20 max-w-5xl mx-auto"
       >
         <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,_1fr)_300px] gap-10 mb-10">
@@ -236,6 +246,7 @@ export default function Home() {
 
       <section
         data-depth-mode="projects"
+        data-home-room="projects"
         className="px-6 py-20 border-y border-line/60"
       >
         <div className="max-w-5xl mx-auto">
@@ -252,7 +263,11 @@ export default function Home() {
         </div>
       </section>
 
-      <section data-depth-mode="about" className="px-6 py-20 max-w-5xl mx-auto">
+      <section
+        data-depth-mode="about"
+        data-home-room="portals"
+        className="px-6 py-20 max-w-5xl mx-auto"
+      >
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-5 mb-10">
           <div>
             <SectionKicker>// route portals</SectionKicker>
@@ -286,7 +301,11 @@ export default function Home() {
         </div>
       </section>
 
-      <section data-depth-mode="contact" className="px-6 py-24 max-w-5xl mx-auto">
+      <section
+        data-depth-mode="contact"
+        data-home-room="contact"
+        className="px-6 py-24 max-w-5xl mx-auto"
+      >
         <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-8 md:items-end">
           <div>
             <SectionKicker>// contact</SectionKicker>
@@ -306,6 +325,7 @@ export default function Home() {
           </Link>
         </div>
       </section>
+      </div>
     </>
   );
 }

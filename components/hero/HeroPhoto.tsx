@@ -7,6 +7,7 @@ export function HeroPhoto() {
   return (
     <section
       data-depth-mode="hero"
+      data-home-room="hero"
       className="px-6 py-20 sm:py-28 max-w-5xl mx-auto"
     >
       <div className="grid grid-cols-1 md:grid-cols-[minmax(0,_360px)_1fr] gap-10 md:gap-14 items-center">
