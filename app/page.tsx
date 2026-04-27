@@ -1,17 +1,18 @@
+import { BootIntro } from "@/components/hero/BootIntro";
+
 export default function Home() {
   return (
-    <section className="min-h-[80vh] flex items-center justify-center px-6">
-      <div className="text-center space-y-6">
-        <p className="font-mono text-xs text-cyan tracking-widest">
-          [ phase 1 — skeleton deployed ]
+    <>
+      <BootIntro />
+      <section className="px-6 py-24 max-w-3xl mx-auto">
+        <p className="font-mono text-xs text-muted tracking-widest mb-3">
+          // home — long-scroll narrative
         </p>
-        <h1 className="font-mono text-5xl md:text-7xl tracking-tight text-fg">
-          aayush mehta
-        </h1>
-        <p className="font-mono text-sm text-muted">
-          data + ai + cloud engineer
+        <p className="text-muted leading-relaxed">
+          Photo · about teaser · tech constellation glimpse · experience
+          strip · featured projects · contact CTA — coming in phase 3.
         </p>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }

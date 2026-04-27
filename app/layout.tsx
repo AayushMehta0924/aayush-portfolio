@@ -7,6 +7,9 @@ import { CustomCursor } from "@/components/shell/CustomCursor";
 import { SoundManager } from "@/components/shell/SoundManager";
 import { KonamiListener } from "@/components/shell/KonamiListener";
 import { LenisProvider } from "@/components/shell/LenisProvider";
+import { PageTransition } from "@/components/shell/PageTransition";
+import { CommandPalette } from "@/components/shell/CommandPalette";
+import { RouteWarpFlash } from "@/components/shell/RouteWarpFlash";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -36,12 +39,16 @@ export default function RootLayout({
       <body className="min-h-dvh flex flex-col font-sans">
         <LenisProvider>
           <Nav />
-          <main className="flex-1 pt-16">{children}</main>
+          <main className="flex-1 pt-16">
+            <PageTransition>{children}</PageTransition>
+          </main>
           <Footer />
         </LenisProvider>
         <CustomCursor />
         <SoundManager />
         <KonamiListener />
+        <RouteWarpFlash />
+        <CommandPalette />
       </body>
     </html>
   );
