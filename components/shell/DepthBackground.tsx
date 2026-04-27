@@ -19,6 +19,7 @@ type ModeProfile = {
   gravity: number;
   drift: number;
   lineAlpha: number;
+  motif: "lens" | "staff" | "grid" | "shaft" | "portal" | "radar";
 };
 
 type Particle = {
@@ -43,6 +44,7 @@ const BASE_PROFILES: Record<DepthMode, ModeProfile> = {
     gravity: 1.1,
     drift: 0.7,
     lineAlpha: 0.06,
+    motif: "lens",
   },
   about: {
     primary: [103, 232, 249],
@@ -50,6 +52,7 @@ const BASE_PROFILES: Record<DepthMode, ModeProfile> = {
     gravity: 0.72,
     drift: 0.45,
     lineAlpha: 0.045,
+    motif: "staff",
   },
   tech: {
     primary: [103, 232, 249],
@@ -57,6 +60,7 @@ const BASE_PROFILES: Record<DepthMode, ModeProfile> = {
     gravity: -0.9,
     drift: 0.85,
     lineAlpha: 0.08,
+    motif: "grid",
   },
   experience: {
     primary: [168, 85, 247],
@@ -64,6 +68,7 @@ const BASE_PROFILES: Record<DepthMode, ModeProfile> = {
     gravity: 0.55,
     drift: 0.35,
     lineAlpha: 0.04,
+    motif: "shaft",
   },
   projects: {
     primary: [168, 85, 247],
@@ -71,6 +76,7 @@ const BASE_PROFILES: Record<DepthMode, ModeProfile> = {
     gravity: 1.35,
     drift: 1.05,
     lineAlpha: 0.09,
+    motif: "portal",
   },
   contact: {
     primary: [74, 222, 128],
@@ -78,6 +84,7 @@ const BASE_PROFILES: Record<DepthMode, ModeProfile> = {
     gravity: 0.35,
     drift: 0.25,
     lineAlpha: 0.055,
+    motif: "radar",
   },
 };
 
@@ -170,6 +177,104 @@ function getProfile(mode: DepthMode, project: ProjectSignal | null) {
   const base = BASE_PROFILES[mode];
   const projectProfile = project ? PROJECT_PROFILES[project.slug] : undefined;
   return { ...base, ...projectProfile };
+}
+
+function drawMotif(
+  ctx: CanvasRenderingContext2D,
+  profile: ModeProfile,
+  width: number,
+  height: number,
+  scrollY: number,
+  pointer: { x: number; y: number; active: boolean },
+  time: number,
+  project: ProjectSignal | null,
+) {
+  switch (profile.motif) {
+    case "staff": {
+      const top = height * 0.28 + Math.sin(time * 0.5) * 12;
+      for (let i = 0; i < 5; i += 1) {
+        const y = top + i * 14 + (scrollY % 28) * 0.12;
+        ctx.beginPath();
+        ctx.strokeStyle = rgba(profile.secondary, 0.045 - i * 0.003);
+        ctx.lineWidth = 1;
+        ctx.moveTo(width * 0.08, y);
+        ctx.bezierCurveTo(
+          width * 0.28,
+          y + Math.sin(time + i) * 18,
+          width * 0.72,
+          y - Math.cos(time * 0.7 + i) * 16,
+          width * 0.94,
+          y,
+        );
+        ctx.stroke();
+      }
+      break;
+    }
+    case "grid": {
+      const cx = pointer.active ? pointer.x : width * 0.68;
+      const cy = pointer.active ? pointer.y : height * 0.42;
+      for (let r = 70; r <= 310; r += 60) {
+        ctx.beginPath();
+        ctx.strokeStyle = rgba(profile.primary, 0.035);
+        ctx.lineWidth = 1;
+        ctx.ellipse(cx, cy, r * 1.35, r * 0.48, time * 0.08, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+      break;
+    }
+    case "shaft": {
+      const center = width * 0.5;
+      for (let i = -3; i <= 3; i += 1) {
+        const x = center + i * 82 + Math.sin(time * 0.4 + i) * 8;
+        ctx.beginPath();
+        ctx.strokeStyle = rgba(i === 0 ? profile.primary : profile.secondary, i === 0 ? 0.08 : 0.035);
+        ctx.lineWidth = i === 0 ? 1.2 : 1;
+        ctx.moveTo(x, -20);
+        ctx.lineTo(x + i * 18, height + 20);
+        ctx.stroke();
+      }
+      break;
+    }
+    case "portal": {
+      const cx = pointer.active ? pointer.x : width * 0.5;
+      const cy = pointer.active ? pointer.y : height * 0.52;
+      const wobble = project ? Math.sin(time * 2) * 7 : Math.sin(time * 0.7) * 4;
+      for (let i = 0; i < 4; i += 1) {
+        const size = 130 + i * 58 + wobble;
+        ctx.strokeStyle = rgba(i % 2 ? profile.secondary : profile.primary, project ? 0.075 : 0.045);
+        ctx.lineWidth = 1;
+        ctx.strokeRect(cx - size * 0.8, cy - size * 0.45, size * 1.6, size * 0.9);
+      }
+      break;
+    }
+    case "radar": {
+      const cx = pointer.active ? pointer.x : width * 0.72;
+      const cy = pointer.active ? pointer.y : height * 0.55;
+      const sweep = time * 1.35;
+      for (let r = 54; r <= 240; r += 52) {
+        ctx.beginPath();
+        ctx.strokeStyle = rgba(profile.primary, 0.05);
+        ctx.arc(cx, cy, r, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+      ctx.beginPath();
+      ctx.strokeStyle = rgba(profile.secondary, 0.14);
+      ctx.moveTo(cx, cy);
+      ctx.lineTo(cx + Math.cos(sweep) * 260, cy + Math.sin(sweep) * 260);
+      ctx.stroke();
+      break;
+    }
+    case "lens":
+    default: {
+      const cx = pointer.active ? pointer.x : width * 0.42;
+      const cy = pointer.active ? pointer.y : height * 0.42;
+      ctx.beginPath();
+      ctx.strokeStyle = rgba(profile.primary, 0.08);
+      ctx.lineWidth = 1;
+      ctx.arc(cx, cy, 88 + Math.sin(time) * 6, 0, Math.PI * 2);
+      ctx.stroke();
+    }
+  }
 }
 
 export function DepthBackground() {
@@ -271,6 +376,17 @@ export function DepthBackground() {
       const depthY = pointer.active ? pointer.y / Math.max(height, 1) - 0.5 : 0;
 
       ctx.clearRect(0, 0, width, height);
+
+      drawMotif(
+        ctx,
+        profile,
+        width,
+        height,
+        scrollY,
+        { x: pointer.x, y: pointer.y, active: pointer.active },
+        time,
+        project,
+      );
 
       for (const particle of particlesRef.current) {
         const depth = particle.z;
