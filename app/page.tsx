@@ -5,6 +5,7 @@ import { PROJECTS } from "@/content/projects";
 import { BootIntro } from "@/components/hero/BootIntro";
 import { HeroPhoto } from "@/components/hero/HeroPhoto";
 import { HomeCinematicBackdrop } from "@/components/home/HomeCinematicBackdrop";
+import { HomeThreeStage } from "@/components/home/HomeThreeStage";
 import { HoverPreviewList } from "@/components/projects/HoverPreviewList";
 import { SKILL_TREE } from "@/lib/constellation-data";
 
@@ -69,6 +70,7 @@ export default function Home() {
   return (
     <>
       <BootIntro />
+      <HomeThreeStage />
       <HomeCinematicBackdrop />
       <div className="relative z-10">
       <HeroPhoto />

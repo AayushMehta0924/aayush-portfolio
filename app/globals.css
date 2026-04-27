@@ -71,6 +71,22 @@
     transition: background 700ms ease;
   }
 
+  .home-three-stage {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+    opacity: 0.86;
+    mix-blend-mode: screen;
+  }
+
+  .home-three-stage canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
   .home-cinema[data-room="identity"] {
     --home-accent: 237, 237, 237;
     --home-accent-2: 168, 85, 247;
@@ -385,6 +401,10 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
+    .home-three-stage {
+      opacity: 0.55;
+    }
+
     .home-cinema__stage,
     .home-cinema__motifs,
     .home-cinema__strip,
