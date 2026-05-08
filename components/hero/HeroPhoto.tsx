@@ -20,7 +20,7 @@ export function HeroPhoto() {
         >
           <div className="absolute inset-0 bg-gradient-to-br from-violet/10 via-transparent to-cyan/10 pointer-events-none z-10" />
           <Image
-            src="/aayush-hero.jpg"
+            src="/Aayush_beach.JPG"
             alt="Aayush Mehta"
             fill
             priority
